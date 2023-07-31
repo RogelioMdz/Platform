@@ -16,6 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Acceso implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private Date ultimoLogin;
     private Date intent1;
