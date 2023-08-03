@@ -1,6 +1,7 @@
 package com.avy.platform.entity;
 
 
+import com.avy.platform.converter.StatusCuentaConverter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,17 +23,38 @@ public class Acceso implements Serializable {
     private Date intent1;
     private Date intento2;
     private Date intento3;
-    private boolean cuantaHabilitada;
-    private boolean cuentaBloqueada;
-    private User user;
+    private Estatus statusCuenta;
+    private UUID usuario_id;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
-    public User getUser() {
-        return user;
+    @Column(name = "status_cuenta", nullable = false)
+    @Convert(converter = StatusCuentaConverter.class)
+    public Estatus getStatusCuenta() {
+        return statusCuenta;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setStatusCuenta(Estatus statusCuenta) {
+        this.statusCuenta = statusCuenta;
+    }
+
+    public static enum Estatus {
+        HABILITADA(0, "Super Admistrados"),
+        DESACTIVADA(1, "Administrador"),
+        BLOQUEADA(2, "Usuario");
+
+        private final String label;
+        private final int value;
+
+        private Estatus(int value, String label) {
+            this.value = value;
+            this.label = label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 }
