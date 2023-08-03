@@ -37,9 +37,9 @@ public class Acceso implements Serializable {
     }
 
     public static enum Estatus {
-        HABILITADA(0, "Super Admistrados"),
-        DESACTIVADA(1, "Administrador"),
-        BLOQUEADA(2, "Usuario");
+        HABILITADA(0, "Habilitada"),
+        DESACTIVADA(1, "Desactivada"),
+        BLOQUEADA(2, "Bloqueada");
 
         private final String label;
         private final int value;
